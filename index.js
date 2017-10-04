@@ -1,6 +1,20 @@
 const Alexa = require('alexa-sdk');
+const time = require('time');
+const Forecast = require('forecast');
 
 const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
+
+
+const forecast = new Forecast({
+  service: 'darksky',
+  key: '290a75c0183e0026e78b17a48d997d3b',
+  units: 'celcius',
+  cache: true,      // Cache API requests 
+  ttl: {           
+    minutes: 27,
+    seconds: 45
+  }
+});
 
 const handlers = {
     //Use LaunchRequest, instead of NewSession if you want to use the one-shot model
@@ -19,14 +33,22 @@ const handlers = {
         }
 
         if (itemName === 'status') {
-        	// Populate value of status text with relevant info
-        	const statusText = ''
-            this.attributes.speechOutput = statusText;
-            this.attributes.repromptSpeech = 'Repeat status'
+			forecast.get([49.842, 24.0316], function(err, weather) {
+			  	if(err) return console.dir(err);
+			  	
+				var now = new time.Date();
+				now.setTimezone('Europe/Kiev');			
+				const statusText = 'Current time is ' + now.toString() + ' with weather in Lviv' + weather.currently.temperature;
 
-            this.response.speak(statusText).listen(this.attributes.repromptSpeech);
-            this.response.cardRenderer('Status', statusText);
-            this.emit(':responseReady');
+				this.attributes.speechOutput = statusText;
+	            this.attributes.repromptSpeech = 'Repeat status'
+
+	            this.response.speak(statusText).listen(this.attributes.repromptSpeech);
+	            this.response.cardRenderer('Status', statusText);
+	            this.emit(':responseReady');
+			});
+
+
         } 
     },
     'AMAZON.HelpIntent': function () {
