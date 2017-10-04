@@ -22,7 +22,7 @@ const handlers = {
         	// Populate value of status text with relevant info
         	const statusText = ''
             this.attributes.speechOutput = statusText;
-            this.attributes.repromptSpeech = this.t('RECIPE_REPEAT_MESSAGE');
+            this.attributes.repromptSpeech = 'Repeat status'
 
             this.response.speak(statusText).listen(this.attributes.repromptSpeech);
             this.response.cardRenderer('Status', statusText);
@@ -50,8 +50,8 @@ const handlers = {
         console.log(`Session ended: ${this.event.request.reason}`);
     },
     'Unhandled': function () {
-        this.attributes.speechOutput = this.t('HELP_MESSAGE');
-        this.attributes.repromptSpeech = this.t('HELP_REPROMPT');
+        this.attributes.speechOutput = 'Please ask Alexa about status';
+        this.attributes.repromptSpeech = 'Just say Alexa Status';
         this.response.speak(this.attributes.speechOutput).listen(this.attributes.repromptSpeech);
         this.emit(':responseReady');
     },
