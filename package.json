@@ -1,0 +1,24 @@
+{
+  "name": "alexa-status",
+  "version": "1.0.0",
+  "description": "Alexa personal status app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgorGordiichuk/alexa-status.git"
+  },
+  "keywords": [
+    "Alexa",
+    "skill",
+    "custom"
+  ],
+  "author": "IgorGordiichuk",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/IgorGordiichuk/alexa-status#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.12"
+  }
+}
